@@ -8,9 +8,9 @@ Copyright (c) 2023 led-mirage
 
 ## スクリーンショット
 
-<img width="189" alt="screenshot" src="https://github.com/led-mirage/VoivoClip/assets/139528700/a820a011-5c20-474b-8c6e-281efe0d707d">
+<img width="189" alt="screenshot" src="https://github.com/led-mirage/VoivoClip/assets/139528700/09da938d-3a67-4fbe-a217-429166eba303">
 
-https://github.com/led-mirage/VoivoClip/assets/139528700/106c0770-c477-45c6-8d10-4a05c8e8a000
+https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a-66c164acba4e
 
 ## 機能
 
