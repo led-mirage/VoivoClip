@@ -1,4 +1,4 @@
-# <img src="image/application.ico" width="48"> Voivo ClipVoice 
+# <img src="image/application.ico" width="48"> VoivoClip
 
 Copyright (c) 2023-2024 led-mirage
 
@@ -8,7 +8,7 @@ Copyright (c) 2023-2024 led-mirage
 
 ## スクリーンショット
 
-<img width="189" alt="screenshot" src="https://github.com/led-mirage/VoivoClip/assets/139528700/09da938d-3a67-4fbe-a217-429166eba303">
+<img width="189" alt="screenshot" src="https://github.com/led-mirage/VoivoClip/assets/139528700/3e06d108-3f5f-4c41-bcee-ad7fe6171a0e">
 
 https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a-66c164acba4e
 
