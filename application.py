@@ -2,7 +2,7 @@
 #
 # アプリケーションクラス
 #
-# Copyright (c) 2023 led-mirage
+# Copyright (c) 2023-2024 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
@@ -10,11 +10,12 @@ import sys
 from tkinter import messagebox
 
 from settings import Settings
+from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 APP_NAME = "VoivoClip"
-APP_VERSION = "0.1.0"
-COPYRIGHT = "Copyright 2023 led-mirage"
+APP_VERSION = "0.2.0"
+COPYRIGHT = "Copyright 2023-2024 led-mirage"
 
 SETTING_FILE = "settings.json"
 
@@ -33,6 +34,7 @@ class Application:
         self.settings.load()
 
         VoicevoxAPI.server = self.settings.get_voicevox_server()
+        Voicevox.run_voicevox(self.settings.get_aivoice_install_path())
 
         self.speakers = VoicevoxAPI.get_speakers()
         if self.speakers is None:

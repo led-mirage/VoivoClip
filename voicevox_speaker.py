@@ -2,7 +2,7 @@
 #
 # VOICEVOX 話者クラス
 #
-# Copyright (c) 2023 led-mirage
+# Copyright (c) 2023-2024 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 

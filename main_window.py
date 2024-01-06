@@ -2,7 +2,7 @@
 #
 # メインウィンドウクラス
 #
-# Copyright (c) 2023 led-mirage
+# Copyright (c) 2023-2024 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
@@ -41,9 +41,17 @@ class MainWindow:
         self.lock = threading.Lock()
 
         self.root = tk.Tk()
+        window_width = 250
+        window_height = 124
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_right = int(screen_width - window_width - 20)
+        position_down = int(screen_height - window_height - 100)
+        self.root.geometry(f"{window_width}x{window_height}+{position_right}+{position_down}")
+
         self.root.resizable(False, False)
         self.root.title(f"{APP_NAME} {APP_VERSION}")
-        self.root.geometry("250x124")
+        self.root.iconbitmap(self.resource_path("image/application.ico"))
 
         self.icon_start = self.load_icon(self.resource_path("image/start.png"))
         self.icon_start_gray = self.load_icon(self.resource_path("image/start_gray.png"))
@@ -244,6 +252,7 @@ class MainWindow:
                             self.process_line(line)
                     self.set_last_speech_text(text)
                     self.queue.put("speech finished")
+                    print()
                 time.sleep(0.5)
         except requests.exceptions.RequestException as err:
             self.queue.put("voicevox api error")
