@@ -107,7 +107,7 @@ VOICEVOXのローカルサーバーのURLを記載します。普通は変更す
 
 #### ✨ voicevox_install_path（既定値 %LOCALAPPDATA%/Programs/VOICEVOX/VOICEVOX.exe）
 
-VOICEVOXの実行ファイルのパスを記載してください。VOICEVOXを既定の場所にインストールした場合は変更する必要はありません。別の場所にインストールした場合や、VOICEVOX Engine を使用したい場合は、この値を変更してください。
+VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファイルのパスを記載してください。VOICEVOXを既定の場所にインストールした場合は変更する必要はありません。別の場所にインストールした場合はこの値を変更してください。
 
 ## 使用しているライブラリ
 
