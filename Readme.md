@@ -39,7 +39,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/0.2.0
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.2.0
 
 #### 3. 実行
 
