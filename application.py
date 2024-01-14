@@ -14,7 +14,7 @@ from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 APP_NAME = "VoivoClip"
-APP_VERSION = "0.2.0"
+APP_VERSION = "0.2.1"
 COPYRIGHT = "Copyright 2023-2024 led-mirage"
 
 SETTING_FILE = "settings.json"
@@ -34,7 +34,7 @@ class Application:
         self.settings.load()
 
         VoicevoxAPI.server = self.settings.get_voicevox_server()
-        Voicevox.run_voicevox(self.settings.get_aivoice_install_path())
+        Voicevox.run_voicevox(self.settings.get_voicevox_install_path())
 
         self.speakers = VoicevoxAPI.get_speakers()
         if self.speakers is None:

@@ -65,11 +65,11 @@ class Settings:
             self._voicevox_server = voicevox_server
 
     # VOICEVOX のインストールパス
-    def get_aivoice_install_path(self):
+    def get_voicevox_install_path(self):
         with self._lock:
             return self._voicevox_install_path
     
-    def set_aivoice_install_path(self, install_path):
+    def set_voicevox_install_path(self, install_path):
         with self._lock:
             self._voicevox_install_path = install_path
 

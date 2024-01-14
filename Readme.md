@@ -39,7 +39,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.2.0
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.2.1
 
 #### 3. 実行
 
@@ -149,3 +149,7 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 - 起動時のウィンドウの位置を右下に変更
 - アプリケーションアイコンの追加
 - その他、微修正
+
+### 0.2.1 (2024/01/14)
+
+- メソッド名修正（動作に影響なし）
