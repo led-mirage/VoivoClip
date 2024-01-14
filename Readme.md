@@ -6,6 +6,8 @@ Copyright (c) 2023-2024 led-mirage
 
 クリップボードに貼り付けられたテキストを VOICEVOX で読み上げるアプリです。
 
+[VOICEVOX公式ページ](https://voicevox.hiroshiba.jp/)
+
 ## スクリーンショット
 
 <img width="189" alt="screenshot" src="https://github.com/led-mirage/VoivoClip/assets/139528700/3e06d108-3f5f-4c41-bcee-ad7fe6171a0e">
