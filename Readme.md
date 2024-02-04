@@ -27,7 +27,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 - Windows 11 Pro 23H2
 - Python 3.12.0
 - VOICEVOX 0.14.10
-- VOICEVOX ENGINE 0.14.6
+- VOICEVOX ENGINE 0.14.6 - 0.16.1
 
 ## 実行方法
 
@@ -128,7 +128,7 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 ホームページ： https://people.csail.mit.edu/hubert/pyaudio/  
 ライセンス：[MIT License](https://people.csail.mit.edu/hubert/pyaudio/)
 
-### 🔖 Pillow 10.1.0
+### 🔖 Pillow 10.2.0
 
 ホームページ： https://python-pillow.org/  
 ライセンス：[HPND License](https://raw.githubusercontent.com/python-pillow/Pillow/main/LICENSE)
@@ -155,3 +155,9 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 ### 0.2.1 (2024/01/14)
 
 - メソッド名修正（動作に影響なし）
+
+### 0.2.2 (2024/02/04)
+
+- ローカルPCでビルドしたをpyinstaller使用するよう変更
+- pillowを10.2.0に更新
+- VOICEVOX 0.16.1で動作確認
