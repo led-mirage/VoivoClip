@@ -158,6 +158,6 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 ### 0.2.2 (2024/02/04)
 
-- ローカルPCでビルドしたをpyinstaller使用するよう変更
+- ローカルPCでビルドしたをpyinstaller使用するよう変更（誤検知対策）
 - pillowを10.2.0に更新
 - VOICEVOX 0.16.1で動作確認
