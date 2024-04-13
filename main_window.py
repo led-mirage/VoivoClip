@@ -9,6 +9,7 @@
 import io
 import os
 import queue
+import re
 import sys
 import tkinter as tk
 from tkinter import messagebox
@@ -271,6 +272,7 @@ class MainWindow:
             sentences = line.split("。")
             for sentence in sentences:
                 if not self.stop_event.is_set():
+                    sentence = self.replace_text(sentence)
                     self.text_to_speech(
                         sentence, App.settings.get_speaker_id(),
                         App.settings.get_speed_scale(), App.settings.get_pitch_scale())
@@ -278,6 +280,14 @@ class MainWindow:
                     break
         else:
             time.sleep(0.2 / App.settings.get_speed_scale())
+
+    # テキストを置換する
+    def replace_text(self, text):
+        for item in App.settings.get_replacements():
+            pattern = item["pattern"]
+            replacement = item["replacement"]
+            text = re.sub(pattern, replacement, text)
+        return text
 
     # テキストを読み上げる
     def text_to_speech(self, text, speaker_id, speed_scale, pitch_scale):

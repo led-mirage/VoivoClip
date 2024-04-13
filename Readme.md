@@ -26,7 +26,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 - Windows 11 Pro 23H2
 - Python 3.12.0
-- VOICEVOX 0.14.10
+- VOICEVOX 0.14.10 - 0.18.0
 - VOICEVOX ENGINE 0.14.6 - 0.16.1
 
 ## 実行方法
@@ -41,7 +41,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.2.2
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.0
 
 #### 3. 実行
 
@@ -111,6 +111,42 @@ VOICEVOXのローカルサーバーのURLを記載します。普通は変更す
 
 VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファイルのパスを記載してください。VOICEVOXを既定の場所にインストールした場合は変更する必要はありません。別の場所にインストールした場合はこの値を変更してください。
 
+#### ✨ replacements（既定値 []）
+
+読み上げるテキストの置換設定です。置換対象（pattern）を正規表現で、置換後の文字列（replacement）を通常の文字列で指定します。
+
+例えば括弧内のテキストと、URLを除去して読み上げたい場合は、以下のように設定します。置換パターンは複数個記載でき、上から順に処理されます。
+
+```json
+    "replacements": [
+        {
+            "pattern": "\\(.*?\\)|（.*?）",
+            "replacement": ""
+        },
+        {
+            "pattern": "https?:\\/\\/(?:[\\w\\-\\.]+)+(?:[\\w\\.\\/\\?%&=]*)?",
+            "replacement": ""
+        }
+    ]
+```
+
+## 注意事項
+
+### ⚡ ウィルス対策ソフトの誤認問題
+
+このプログラムの実行ファイル（VoivoClip.exe、VoivoClipNC.exe）は PyInstaller というライブラリを使って作成していますが、ウィルス対策ソフトにマルウェアと誤認されることがあります。
+
+もちろん、このアプリに悪意のあるプログラムは入っていませんが、気になる人は上記の「Pythonで実行する方法」で実行してください。
+
+誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
+
+VirusTotalでのチェック結果は以下の通りです（2024/04/13 v0.3.0）
+
+- VoivoClip.exe … 70個中5個のアンチウィルスエンジンで検出
+- VoivoClipNC.exe … 70個中5個のアンチウィルスエンジンで検出
+
+<img src="doc/virustotal_0.3.0.png" width="600">
+
 ## 使用しているライブラリ
 
 ### 🔖 requests 2.31.0
@@ -161,3 +197,7 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 - ローカルPCでビルドしたをpyinstaller使用するよう変更（誤検知対策）
 - pillowを10.2.0に更新
 - VOICEVOX 0.16.1で動作確認
+
+### 0.3.0 (2024/04/13)
+
+- 置換文字列を設定できるように変更（正規表現で指定）
