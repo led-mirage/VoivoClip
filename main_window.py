@@ -267,12 +267,12 @@ class MainWindow:
     # １行を処理する
     def process_line(self, line):
         print(line)
+        line = self.replace_text(line)
         line = line.strip("\r\n-　 ")
         if line != "":
             sentences = line.split("。")
             for sentence in sentences:
                 if not self.stop_event.is_set():
-                    sentence = self.replace_text(sentence)
                     self.text_to_speech(
                         sentence, App.settings.get_speaker_id(),
                         App.settings.get_speed_scale(), App.settings.get_pitch_scale())
