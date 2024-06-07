@@ -317,6 +317,7 @@ class MainWindow:
                     break
                 stream.write(data)
                 data = wave_file.readframes(1024)
+            time.sleep(0.2)
         finally:
             stream.stop_stream()
             stream.close()

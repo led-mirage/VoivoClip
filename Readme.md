@@ -41,7 +41,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.1
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.2
 
 #### 3. 実行
 
@@ -140,12 +140,12 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2024/06/01 v0.3.1）
+VirusTotalでのチェック結果は以下の通りです（2024/06/01 v0.3.2）
 
-- VoivoClip.exe … 74個中4個のアンチウィルスエンジンで検出
-- VoivoClipNC.exe … 74個中6個のアンチウィルスエンジンで検出
+- VoivoClip.exe … 72個中5個のアンチウィルスエンジンで検出
+- VoivoClipNC.exe … 72個中7個のアンチウィルスエンジンで検出
 
-<img src="doc/virustotal_0.3.1.png" width="600">
+<img src="doc/virustotal_0.3.2.png" width="600">
 
 ## 使用しているライブラリ
 
@@ -205,3 +205,7 @@ VirusTotalでのチェック結果は以下の通りです（2024/06/01 v0.3.1�
 ### 0.3.1 (2024/06/01)
 
 - issue#3に対応（正規表現で置換する位置を変更）
+
+### 0.3.2 (2024/06/08)
+
+- 再生環境による文末の音声途切れ問題を軽減するため、再生終了後に0.2秒間の待機時間を追加
