@@ -26,7 +26,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 - Windows 11 Pro 23H2
 - Python 3.12.0
-- VOICEVOX 0.14.10 - 0.18.0
+- VOICEVOX 0.14.10 - 0.19.2
 - VOICEVOX ENGINE 0.14.6 - 0.16.1
 
 ## 実行方法
@@ -41,7 +41,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.2
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.3
 
 #### 3. 実行
 
@@ -90,6 +90,9 @@ python application.py
 ### ⚙️ アプリケーション設定ファイル（オプション）
 
 `settings.json`ファイルにはこのアプリの設定情報が記載されています。
+
+※プログラム引数で設定ファイル名を渡すことで、使用する設定ファイルを切り替えることができます。
+例）VoivoClip --setting my_settings.json
 
 #### ✨ speaker_id（既定値 3）
 
@@ -140,16 +143,16 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2024/06/08 v0.3.2）
+VirusTotalでのチェック結果は以下の通りです（2024/06/15 v0.3.3）
 
-- VoivoClip.exe … 72個中5個のアンチウィルスエンジンで検出
-- VoivoClipNC.exe … 72個中7個のアンチウィルスエンジンで検出
+- VoivoClip.exe … 74個中7個のアンチウィルスエンジンで検出
+- VoivoClipNC.exe … 73個中11個のアンチウィルスエンジンで検出
 
-<img src="doc/virustotal_0.3.2.png" width="600">
+<img src="doc/virustotal_0.3.3.png" width="600">
 
 ## 使用しているライブラリ
 
-### 🔖 requests 2.31.0
+### 🔖 requests 2.32.3
 
 ホームページ： https://requests.readthedocs.io/en/latest/  
 ライセンス：[Apache License 2.0](https://github.com/psf/requests/blob/main/LICENSE) 
@@ -164,7 +167,7 @@ VirusTotalでのチェック結果は以下の通りです（2024/06/08 v0.3.2�
 ホームページ： https://people.csail.mit.edu/hubert/pyaudio/  
 ライセンス：[MIT License](https://people.csail.mit.edu/hubert/pyaudio/)
 
-### 🔖 Pillow 10.2.0
+### 🔖 Pillow 10.3.0
 
 ホームページ： https://python-pillow.org/  
 ライセンス：[HPND License](https://raw.githubusercontent.com/python-pillow/Pillow/main/LICENSE)
@@ -209,3 +212,10 @@ VirusTotalでのチェック結果は以下の通りです（2024/06/08 v0.3.2�
 ### 0.3.2 (2024/06/08)
 
 - 再生環境による文末の音声途切れ問題を軽減するため、再生終了後に0.2秒間の待機時間を追加
+
+### 0.3.3 (2024/06/15)
+
+- プログラム引数で設定ファイル名を渡せるように変更
+- requestsのバージョンを2.32.3に更新
+- pillowのバージョンを10.3.0に更新
+- PyInstallerのバージョンを6.7.0に更新

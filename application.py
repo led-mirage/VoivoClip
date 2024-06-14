@@ -6,6 +6,7 @@
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
+import argparse
 import sys
 from tkinter import messagebox
 
@@ -14,7 +15,7 @@ from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 APP_NAME = "VoivoClip"
-APP_VERSION = "0.3.2"
+APP_VERSION = "0.3.3"
 COPYRIGHT = "Copyright 2023-2024 led-mirage"
 
 SETTING_FILE = "settings.json"
@@ -28,9 +29,13 @@ class Application:
 
     # 開始
     def start(self):
+        parser = argparse.ArgumentParser(description=f"{APP_NAME} {APP_VERSION}")
+        parser.add_argument("--setting", type=str, default=SETTING_FILE, help="設定ファイル名")
+        args = parser.parse_args()
+
         self.print_apptitle()
 
-        self.settings = Settings(SETTING_FILE)
+        self.settings = Settings(args.setting)
         self.settings.load()
 
         VoicevoxAPI.server = self.settings.get_voicevox_server()

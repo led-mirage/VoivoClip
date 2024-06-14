@@ -1,8 +1,9 @@
 {
-    "file_ver": 2,
+    "file_ver": 3,
     "speaker_id": 3,
     "speed_scale": 1.2,
     "pitch_scale": 0.0,
     "voicevox_server": "http://127.0.0.1:50021",
-    "voicevox_install_path": "%LOCALAPPDATA%/Programs/VOICEVOX/VOICEVOX.exe"
+    "voicevox_install_path": "%LOCALAPPDATA%/Programs/VOICEVOX/VOICEVOX.exe",
+    "replacements": []
 }
