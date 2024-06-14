@@ -87,7 +87,7 @@ python application.py
 
 #### 6. 起動用のバッチファイル（オプション）
 
-以下のような起動用のバッチファイルを用意してくと便利です。
+以下のような起動用のバッチファイルを用意しておくと便利です。
 
 ```bat
 start pythonw application.py
