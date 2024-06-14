@@ -85,6 +85,21 @@ VOICEVOX を起動したのち、以下のコマンドを実行するとアプ�
 python application.py
 ```
 
+#### 6. 起動用のバッチファイル（オプション）
+
+以下のような起動用のバッチファイルを用意してくと便利です。
+
+```bat
+start pythonw application.py
+```
+
+Pythonの仮想環境を使用している場合は、以下の例のようにすればOKです。
+
+```bat
+call venv\scripts\activate
+start pythonw application.py
+```
+
 ## 設定
 
 ### ⚙️ アプリケーション設定ファイル（オプション）
