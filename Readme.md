@@ -1,6 +1,10 @@
 # <img src="image/application.ico" width="48"> VoivoClip
 
-Copyright (c) 2023-2024 led-mirage
+[![GitHub All Releases](https://img.shields.io/github/downloads/led-mirage/VoivoClip/total?color=blue)](https://github.com/led-mirage/VoivoClip/releases)
+[![GitHub release](https://img.shields.io/github/v/release/led-mirage/VoivoClip?color=blue)](https://github.com/led-mirage/VoivoClip/releases)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+Copyright (c) 2023-2025 led-mirage
 
 ## 概要
 
