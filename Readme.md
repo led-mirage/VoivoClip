@@ -41,7 +41,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.3
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.4
 
 #### 3. 実行
 
@@ -158,16 +158,16 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2024/06/15 v0.3.3）
+VirusTotalでのチェック結果は以下の通りです（2025/06/15 v0.3.4）
 
-- VoivoClip.exe … 74個中7個のアンチウィルスエンジンで検出
-- VoivoClipNC.exe … 73個中11個のアンチウィルスエンジンで検出
+- VoivoClip.exe … [72個中6個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/cbe3768da2dd06fec6495649144951af75f1a0386bbc050c06718c6df4cec52f?nocache=1)
+- VoivoClipNC.exe … [72個中8個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/9b8fc020530811601e98a46c5bccb548466277d1148eb8231f84e7e0211a264d?nocache=1)
 
-<img src="doc/virustotal_0.3.3.png" width="600">
+<img src="doc/virustotal_0.3.4.png" width="600">
 
 ## 使用しているライブラリ
 
-### 🔖 requests 2.32.3
+### 🔖 requests 2.32.4
 
 ホームページ： https://requests.readthedocs.io/en/latest/  
 ライセンス：[Apache License 2.0](https://github.com/psf/requests/blob/main/LICENSE) 
@@ -187,9 +187,14 @@ VirusTotalでのチェック結果は以下の通りです（2024/06/15 v0.3.3�
 ホームページ： https://python-pillow.org/  
 ライセンス：[HPND License](https://raw.githubusercontent.com/python-pillow/Pillow/main/LICENSE)
 
+### 🔖 PyInstaller 6.14.0
+
+ホームページ： https://github.com/pyinstaller/pyinstaller  
+ライセンス： GPL 2.0 License / Apache License 2.0  
+
 ## ライセンス
 
-© 2023-2024 led-mirage
+© 2023-2025 led-mirage
 
 本アプリケーションは [MITライセンス](https://opensource.org/licenses/MIT) の下で公開されています。詳細については、プロジェクトに含まれる LICENSE ファイルを参照してください。
 
@@ -234,3 +239,8 @@ VirusTotalでのチェック結果は以下の通りです（2024/06/15 v0.3.3�
 - requestsのバージョンを2.32.3に更新
 - pillowのバージョンを10.3.0に更新
 - PyInstallerのバージョンを6.7.0に更新
+
+### 0.3.4 (2025/06/15)
+
+- requestsのバージョンを2.32.4に更新（CVE-2024-47081対応）
+- PyInstallerのバージョンを6.14.0に更新
