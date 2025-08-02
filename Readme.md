@@ -18,6 +18,13 @@ Copyright (c) 2023-2025 led-mirage
 
 https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a-66c164acba4e
 
+## メディア掲載
+
+### ✨ [@IT: 「ずんだもん校正術」と「自分で実装する浮動小数点数値の加算」](https://atmarkit.itmedia.co.jp/ait/articles/2507/28/news016.html)  
+
+校正作業用・無料音声読み上げツールとしてVoivoClipが紹介されました（2025年7月28日）。
+> 「“無料”で使いたい」「ずんだもんの声が好き！」という方には、今回紹介した「VOICEVOX＋VoivoClip」の組み合わせがお薦めです。（記事より）
+
 ## 機能
 
 - クリップボード監視の開始と停止
