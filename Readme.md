@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/led-mirage/VoivoClip?color=blue)](https://github.com/led-mirage/VoivoClip/releases)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Copyright (c) 2023-2025 led-mirage
+Copyright (c) 2023-2026 led-mirage
 
 ## 概要
 
@@ -52,7 +52,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.4
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.5
 
 #### 3. 実行
 
@@ -169,12 +169,12 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2025/06/15 v0.3.4）
+VirusTotalでのチェック結果は以下の通りです（2026/02/13 v0.3.5）
 
-- VoivoClip.exe … [72個中6個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/cbe3768da2dd06fec6495649144951af75f1a0386bbc050c06718c6df4cec52f?nocache=1)
-- VoivoClipNC.exe … [72個中8個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/9b8fc020530811601e98a46c5bccb548466277d1148eb8231f84e7e0211a264d?nocache=1)
+- VoivoClip.exe … [72個中2個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/2397efdf492fed0e0b955b7fb05ca4ddc1e84f5b77648e08049228b7203e54cc/detection)
+- VoivoClipNC.exe … [71個中4個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/0d7acf01fb30e11ee06702f37194dff26707aa23d1e687a6ab665abac89abd62/detection)
 
-<img src="doc/virustotal_0.3.4.png" width="600">
+<img src="doc/virustotal_0.3.5.png" width="600">
 
 ## 使用しているライブラリ
 
@@ -193,19 +193,19 @@ VirusTotalでのチェック結果は以下の通りです（2025/06/15 v0.3.4�
 ホームページ： https://people.csail.mit.edu/hubert/pyaudio/  
 ライセンス：[MIT License](https://people.csail.mit.edu/hubert/pyaudio/)
 
-### 🔖 Pillow 10.3.0
+### 🔖 Pillow 12.1.1
 
 ホームページ： https://python-pillow.org/  
 ライセンス：[HPND License](https://raw.githubusercontent.com/python-pillow/Pillow/main/LICENSE)
 
-### 🔖 PyInstaller 6.14.0
+### 🔖 PyInstaller 6.16.0
 
 ホームページ： https://github.com/pyinstaller/pyinstaller  
 ライセンス： GPL 2.0 License / Apache License 2.0  
 
 ## ライセンス
 
-© 2023-2025 led-mirage
+© 2023-2026 led-mirage
 
 本アプリケーションは [MITライセンス](https://opensource.org/licenses/MIT) の下で公開されています。詳細については、プロジェクトに含まれる LICENSE ファイルを参照してください。
 
@@ -255,3 +255,8 @@ VirusTotalでのチェック結果は以下の通りです（2025/06/15 v0.3.4�
 
 - requestsのバージョンを2.32.4に更新（CVE-2024-47081対応）
 - PyInstallerのバージョンを6.14.0に更新
+
+### 0.3.5 (2026/02/13)
+
+- pillowのバージョンを12.1.1に更新（CVE-2026-25990対応）
+- PyInstallerのバージョンを6.16.0に更新
