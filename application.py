@@ -15,7 +15,7 @@ from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 APP_NAME = "VoivoClip"
-APP_VERSION = "0.3.5"
+APP_VERSION = "0.3.5_plumvery"
 COPYRIGHT = "Copyright 2023-2026 led-mirage"
 
 SETTING_FILE = "settings.json"
