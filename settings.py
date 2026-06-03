@@ -14,7 +14,17 @@ from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 class Settings:
-    FILE_VER = 3
+    FILE_VER = 4
+    AUDIO_QUERY_SETTING_NAMES = {
+        "speed_scale": "_speed_scale",
+        "pitch_scale": "_pitch_scale",
+        "intonation_scale": "_intonation_scale",
+        "volume_scale": "_volume_scale",
+        "pre_phoneme_length": "_pre_phoneme_length",
+        "post_phoneme_length": "_post_phoneme_length",
+        "pause_length": "_pause_length",
+        "pause_length_scale": "_pause_length_scale",
+    }
 
     def __init__(self, setting_file_path):
         self._setting_file_path = setting_file_path
@@ -25,6 +35,12 @@ class Settings:
         self._speaker_id = 3
         self._speed_scale = 1.2
         self._pitch_scale = 0.0
+        self._intonation_scale = 1.0
+        self._volume_scale = 1.0
+        self._pre_phoneme_length = 0.1
+        self._post_phoneme_length = 0.1
+        self._pause_length = None
+        self._pause_length_scale = 1.0
         self._voicevox_server = VoicevoxAPI.DEFALUT_SERVER
         self._voicevox_install_path = Voicevox.DEFAULT_INSTALL_PATH
         self._replacements = []
@@ -55,6 +71,40 @@ class Settings:
     def set_pitch_scale(self, pitch_scale):
         with self._lock:
             self._pitch_scale = pitch_scale
+
+    # AudioQuery parameters
+    def get_audio_query_setting_parameters(self):
+        with self._lock:
+            return {
+                "speed_scale": self._speed_scale,
+                "pitch_scale": self._pitch_scale,
+                "intonation_scale": self._intonation_scale,
+                "volume_scale": self._volume_scale,
+                "pre_phoneme_length": self._pre_phoneme_length,
+                "post_phoneme_length": self._post_phoneme_length,
+                "pause_length": self._pause_length,
+                "pause_length_scale": self._pause_length_scale,
+            }
+
+    def set_audio_query_setting_parameter(self, name, value):
+        if name not in Settings.AUDIO_QUERY_SETTING_NAMES:
+            raise ValueError(f"Unknown audio query setting: {name}")
+
+        with self._lock:
+            setattr(self, Settings.AUDIO_QUERY_SETTING_NAMES[name], value)
+
+    def get_audio_query_parameters(self):
+        with self._lock:
+            return {
+                "speedScale": self._speed_scale,
+                "pitchScale": self._pitch_scale,
+                "intonationScale": self._intonation_scale,
+                "volumeScale": self._volume_scale,
+                "prePhonemeLength": self._pre_phoneme_length,
+                "postPhonemeLength": self._post_phoneme_length,
+                "pauseLength": self._pause_length,
+                "pauseLengthScale": self._pause_length_scale,
+            }
 
     # VOICEVOX サーバーのURL
     def get_voicevox_server(self):
@@ -95,6 +145,12 @@ class Settings:
             setting["speaker_id"] = self._speaker_id
             setting["speed_scale"] = self._speed_scale
             setting["pitch_scale"] = self._pitch_scale
+            setting["intonation_scale"] = self._intonation_scale
+            setting["volume_scale"] = self._volume_scale
+            setting["pre_phoneme_length"] = self._pre_phoneme_length
+            setting["post_phoneme_length"] = self._post_phoneme_length
+            setting["pause_length"] = self._pause_length
+            setting["pause_length_scale"] = self._pause_length_scale
             setting["voicevox_server"] = self._voicevox_server
             setting["voicevox_install_path"] = self._voicevox_install_path
             setting["replacements"] = self._replacements
@@ -114,6 +170,12 @@ class Settings:
                 self._speaker_id = setting.get("speaker_id", self._speaker_id)
                 self._speed_scale = setting.get("speed_scale", self._speed_scale)
                 self._pitch_scale = setting.get("pitch_scale", self._pitch_scale)
+                self._intonation_scale = setting.get("intonation_scale", self._intonation_scale)
+                self._volume_scale = setting.get("volume_scale", self._volume_scale)
+                self._pre_phoneme_length = setting.get("pre_phoneme_length", self._pre_phoneme_length)
+                self._post_phoneme_length = setting.get("post_phoneme_length", self._post_phoneme_length)
+                self._pause_length = setting.get("pause_length", self._pause_length)
+                self._pause_length_scale = setting.get("pause_length_scale", self._pause_length_scale)
                 self._voicevox_server = setting.get("voicevox_server", self._voicevox_server)
                 self._voicevox_install_path = setting.get("voicevox_install_path", self._voicevox_install_path)
                 self._replacements = setting.get("replacements", self._replacements)
