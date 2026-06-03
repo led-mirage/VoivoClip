@@ -15,6 +15,16 @@ from voicevox_api import VoicevoxAPI
 
 class Settings:
     FILE_VER = 4
+    AUDIO_QUERY_SETTING_NAMES = {
+        "speed_scale": "_speed_scale",
+        "pitch_scale": "_pitch_scale",
+        "intonation_scale": "_intonation_scale",
+        "volume_scale": "_volume_scale",
+        "pre_phoneme_length": "_pre_phoneme_length",
+        "post_phoneme_length": "_post_phoneme_length",
+        "pause_length": "_pause_length",
+        "pause_length_scale": "_pause_length_scale",
+    }
 
     def __init__(self, setting_file_path):
         self._setting_file_path = setting_file_path
@@ -63,6 +73,26 @@ class Settings:
             self._pitch_scale = pitch_scale
 
     # AudioQuery parameters
+    def get_audio_query_setting_parameters(self):
+        with self._lock:
+            return {
+                "speed_scale": self._speed_scale,
+                "pitch_scale": self._pitch_scale,
+                "intonation_scale": self._intonation_scale,
+                "volume_scale": self._volume_scale,
+                "pre_phoneme_length": self._pre_phoneme_length,
+                "post_phoneme_length": self._post_phoneme_length,
+                "pause_length": self._pause_length,
+                "pause_length_scale": self._pause_length_scale,
+            }
+
+    def set_audio_query_setting_parameter(self, name, value):
+        if name not in Settings.AUDIO_QUERY_SETTING_NAMES:
+            raise ValueError(f"Unknown audio query setting: {name}")
+
+        with self._lock:
+            setattr(self, Settings.AUDIO_QUERY_SETTING_NAMES[name], value)
+
     def get_audio_query_parameters(self):
         with self._lock:
             return {
