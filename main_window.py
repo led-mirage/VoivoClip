@@ -37,7 +37,9 @@ class MainWindow:
         self.monitoring = False
         self.stop_event = threading.Event()
         self.monitoring_thread = None
+        self.speech_thread = None
         self.queue = queue.Queue()
+        self.speech_queue = queue.Queue()
         self.last_speech_text = ""
         self.lock = threading.Lock()
 
@@ -164,10 +166,13 @@ class MainWindow:
     # 開始ボタン押下イベントハンドラ
     def start_monitoring(self):
         if not self.monitoring:
-            pyperclip.copy("")
+            self.set_last_speech_text(pyperclip.paste())
+            self.speech_queue = queue.Queue()
             self.stop_event.clear()
             self.monitoring_thread = threading.Thread(target=self.monitor_clipboard)
+            self.speech_thread = threading.Thread(target=self.process_speech_queue)
             self.monitoring_thread.start()
+            self.speech_thread.start()
 
             self.monitoring = True
             self.change_button_state()
@@ -177,10 +182,13 @@ class MainWindow:
         if self.monitoring:
             self.stop_event.set()
             self.monitoring_thread.join()
+            self.speech_thread.join()
 
     # リピートボタン押下イベントハンドラ
     def repeat_speech(self):
-        self.set_last_speech_text("")
+        text = pyperclip.paste()
+        if text != "":
+            self.speech_queue.put(text)
 
     # ボタンの状態を変更する
     def change_button_state(self):
@@ -242,24 +250,43 @@ class MainWindow:
     # クリップボードを監視する（ワーカースレッド）    
     def monitor_clipboard(self):
         try:
-            self.set_last_speech_text("")
             while not self.stop_event.is_set():
                 text = pyperclip.paste()
                 if text != "" and text != self.get_last_speech_text():
-                    self.queue.put("speech started")
-                    lines = text.splitlines()
-                    for line in lines:
-                        if not self.stop_event.is_set():
-                            self.process_line(line)
                     self.set_last_speech_text(text)
-                    self.queue.put("speech finished")
-                    print()
-                time.sleep(0.5)
+                    self.speech_queue.put(text)
+                time.sleep(0.1)
+        except Exception as err:
+            self.queue.put("unexpected error")
+            self.stop_event.set()
+            print(err)
+
+    # 読み上げキューを処理する（ワーカースレッド）
+    def process_speech_queue(self):
+        try:
+            while not self.stop_event.is_set():
+                try:
+                    text = self.speech_queue.get(timeout=0.1)
+                except queue.Empty:
+                    continue
+
+                self.queue.put("speech started")
+                lines = text.splitlines()
+                for line in lines:
+                    if not self.stop_event.is_set():
+                        self.process_line(line)
+                    else:
+                        break
+                self.speech_queue.task_done()
+                self.queue.put("speech finished")
+                print()
         except requests.exceptions.RequestException as err:
             self.queue.put("voicevox api error")
+            self.stop_event.set()
             print(err)
         except Exception as err:
             self.queue.put("unexpected error")
+            self.stop_event.set()
             print(err)
         finally:
             self.queue.put("monitoring thread terminated")
