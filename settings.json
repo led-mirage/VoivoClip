@@ -1,8 +1,14 @@
 {
-    "file_ver": 3,
+    "file_ver": 4,
     "speaker_id": 3,
     "speed_scale": 1.2,
     "pitch_scale": 0.0,
+    "intonation_scale": 1.0,
+    "volume_scale": 1.0,
+    "pre_phoneme_length": 0.1,
+    "post_phoneme_length": 0.1,
+    "pause_length": null,
+    "pause_length_scale": 1.0,
     "voicevox_server": "http://127.0.0.1:50021",
     "voicevox_install_path": "%LOCALAPPDATA%/Programs/VOICEVOX/VOICEVOX.exe",
     "replacements": []

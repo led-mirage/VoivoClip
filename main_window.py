@@ -275,7 +275,7 @@ class MainWindow:
                 if not self.stop_event.is_set():
                     self.text_to_speech(
                         sentence, App.settings.get_speaker_id(),
-                        App.settings.get_speed_scale(), App.settings.get_pitch_scale())
+                        App.settings.get_audio_query_parameters())
                 else:
                     break
         else:
@@ -290,10 +290,11 @@ class MainWindow:
         return text
 
     # テキストを読み上げる
-    def text_to_speech(self, text, speaker_id, speed_scale, pitch_scale):
+    def text_to_speech(self, text, speaker_id, audio_query_parameters):
         query_json = VoicevoxAPI.audio_query(text, speaker_id)
-        query_json["speedScale"] = speed_scale
-        query_json["pitchScale"] = pitch_scale
+        for key, value in audio_query_parameters.items():
+            if key in query_json:
+                query_json[key] = value
         wave_data = VoicevoxAPI.synthesis(query_json, speaker_id)
         self.play_sound(wave_data)
 
