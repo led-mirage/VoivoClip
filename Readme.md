@@ -14,7 +14,8 @@ Copyright (c) 2023-2026 led-mirage
 
 ## スクリーンショット
 
-<img width="189" alt="screenshot" src="https://github.com/led-mirage/VoivoClip/assets/139528700/3e06d108-3f5f-4c41-bcee-ad7fe6171a0e">
+<img width="189" alt="screenshot" src="doc/screenshot_0.4.0A.png">
+<img width="189" alt="screenshot" src="doc/screenshot_0.4.0B.png">
 
 https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a-66c164acba4e
 
@@ -29,15 +30,16 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 - クリップボード監視の開始と停止
 - キャラクター選択
-- 話速調整（0.5～2.0）
+- 音声パラメータの詳細調整
+- 読み上げ中にコピーしたテキストの順次読み上げ
 - リピート
 - 設定値の自動保存
 
 ## 動作確認環境
 
-- Windows 11 Pro 23H2
+- Windows 11 Pro 25H2
 - Python 3.12.0
-- VOICEVOX 0.14.10 - 0.19.2
+- VOICEVOX 0.14.10 - 0.25.0
 - VOICEVOX ENGINE 0.14.6 - 0.16.1
 
 ## 実行方法
@@ -52,7 +54,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.3.5
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.4.0
 
 #### 3. 実行
 
@@ -183,6 +185,12 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
     ]
 ```
 
+#### ✨ details_expanded（既定値 false）
+
+詳細設定パネルの展開状態です。
+`true`で展開、`false`で折りたたみます。
+アプリのGUIから変更でき、状態は自動保存されます。
+
 ## 注意事項
 
 ### ⚡ ウィルス対策ソフトの誤認問題
@@ -193,16 +201,16 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2026/02/13 v0.3.5）
+VirusTotalでのチェック結果は以下の通りです（2026/10/24 v0.4.0）
 
-- VoivoClip.exe … [72個中2個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/2397efdf492fed0e0b955b7fb05ca4ddc1e84f5b77648e08049228b7203e54cc/detection)
-- VoivoClipNC.exe … [71個中4個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/0d7acf01fb30e11ee06702f37194dff26707aa23d1e687a6ab665abac89abd62/detection)
+- VoivoClip.exe … [70個中3個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/ce172afd3807a16240e3fc5ae0017df80202df4519ad110c6ef7e13d88fdcda9/detection)
+- VoivoClipNC.exe … [71個中4個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/33bbd9086b71e646a8b90e4d733aa08f803a6f5f1a51550487d3c7b85c325b6e/detection)
 
-<img src="doc/virustotal_0.3.5.png" width="600">
+<img src="doc/virustotal_0.4.0.png" width="600">
 
 ## 使用しているライブラリ
 
-### 🔖 requests 2.32.4
+### 🔖 requests 2.34.2
 
 ホームページ： https://requests.readthedocs.io/en/latest/  
 ライセンス：[Apache License 2.0](https://github.com/psf/requests/blob/main/LICENSE) 
@@ -217,12 +225,12 @@ VirusTotalでのチェック結果は以下の通りです（2026/02/13 v0.3.5�
 ホームページ： https://people.csail.mit.edu/hubert/pyaudio/  
 ライセンス：[MIT License](https://people.csail.mit.edu/hubert/pyaudio/)
 
-### 🔖 Pillow 12.1.1
+### 🔖 Pillow 13.0.0
 
 ホームページ： https://python-pillow.org/  
 ライセンス：[HPND License](https://raw.githubusercontent.com/python-pillow/Pillow/main/LICENSE)
 
-### 🔖 PyInstaller 6.16.0
+### 🔖 PyInstaller 6.14.2
 
 ホームページ： https://github.com/pyinstaller/pyinstaller  
 ライセンス： GPL 2.0 License / Apache License 2.0  
@@ -284,3 +292,19 @@ VirusTotalでのチェック結果は以下の通りです（2026/02/13 v0.3.5�
 
 - pillowのバージョンを12.1.1に更新（CVE-2026-25990対応）
 - PyInstallerのバージョンを6.16.0に更新
+
+### 0.4.0 (2026/10/24)
+
+- 音声の高さ・抑揚・音量・読み上げ前後の無音時間・句読点などの間・間の倍率をGUIで調整できるように変更
+- 句読点などの間の長さに、VOICEVOXの既定値を使用する「自動」設定を追加
+- 詳細設定パネルの展開・折りたたみと、その状態の保存に対応
+- 読み上げ処理をキュー化し、読み上げ中にコピーしたテキストも順番に読み上げるように変更
+- クリップボードの監視間隔を0.5秒から0.1秒に短縮
+- 監視開始時にクリップボードの内容を消去しないように変更
+- リピートボタンで現在のクリップボードの内容を読み上げキューに追加するように変更
+- Windowsの高DPI表示に対応
+- 詳細設定の開閉に応じたウィンドウサイズの調整と、タスクバーを考慮した表示位置の補正を追加
+- 設定ファイルの形式をバージョン4に更新（旧形式からの自動移行に対応）
+- pillowのバージョンを13.0.0に更新
+- requestsのバージョンを2.34.2に更新
+- PyInstallerのバージョンを6.14.2に変更

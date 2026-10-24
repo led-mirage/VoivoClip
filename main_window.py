@@ -78,10 +78,18 @@ class MainWindow:
         self.speaker_combo = self.create_speaker_combo()
         self.speed_label = self.create_speed_label()
         self.speed_scale = self.crate_speed_scale()
+        self.button_frame = tk.Frame(self.root)
         self.start_button = self.create_start_button()
         self.stop_button = self.create_stop_button()
         self.repeat_button = self.create_repeat_button()
         self.audio_settings_frame = self.create_audio_settings_frame()
+
+        self.details_expanded = App.settings.get_details_expanded()
+        self.details_button = tk.Button(
+            self.root,
+            text="詳細設定 ▲" if self.details_expanded else "詳細設定 ▼",
+            command=self.toggle_audio_settings
+        )
 
     # 終了処理
     def terminate(self):
@@ -116,7 +124,7 @@ class MainWindow:
             options.append(f"{speaker.name}（{speaker.style_name}）")
             if speaker.id == App.settings.get_speaker_id():
                 current = idx
-        combo = ttk.Combobox(self.root, values=options, width=34, state="readonly")
+        combo = ttk.Combobox(self.root, values=options, width=35, state="readonly")
         combo.current(current)
         combo.bind("<<ComboboxSelected>>", self.speaker_changed)
         return combo
@@ -128,7 +136,7 @@ class MainWindow:
 
     # 話速スケールを作成する
     def crate_speed_scale(self):
-        scale = tk.Scale(self.root, from_=0.5, to=2.0, resolution=0.1, length=160,
+        scale = tk.Scale(self.root, from_=0.5, to=2.0, resolution=0.1, length=200,
                          orient=tk.HORIZONTAL, showvalue=False, command=self.update_speed_label)
         scale.set(App.settings.get_speed_scale())
         scale.bind("<ButtonRelease-1>", self.speed_scale_changed)
@@ -137,19 +145,19 @@ class MainWindow:
 
     # 開始ボタンを作成する
     def create_start_button(self):
-        button = tk.Button(self.root, text="開始", image=self.icon_start, width=60, height=36,
+        button = tk.Button(self.button_frame, text="開始", image=self.icon_start, width=80, height=36,
                            compound="left", padx=10, command=self.start_monitoring)
         return button
 
     # 停止ボタンを作成する
     def create_stop_button(self):
-        button = tk.Button(self.root, text="停止", image=self.icon_stop, width=60, height=36,
+        button = tk.Button(self.button_frame, text="停止", image=self.icon_stop, width=80, height=36,
                            compound="left", padx=10, command=self.stop_monitoring)
         return button
 
     # リピートボタンを作成する
     def create_repeat_button(self):
-        button = tk.Button(self.root, image=self.icon_repeat, width=30, height=36, padx=10, command=self.repeat_speech)
+        button = tk.Button(self.button_frame, image=self.icon_repeat, width=50, height=36, padx=10, command=self.repeat_speech)
         return button
 
     # 音声設定フレームを作成する
@@ -166,7 +174,7 @@ class MainWindow:
 
             label = tk.Label(frame, text=f"{spec['label']}：", width=7, anchor="w")
             scale = tk.Scale(frame, from_=spec["from"], to=spec["to"], resolution=spec["resolution"],
-                             length=190, orient=tk.HORIZONTAL, showvalue=False)
+                             length=200, orient=tk.HORIZONTAL, showvalue=False)
             value_label = tk.Label(frame, text="", width=5, anchor="e")
 
             label.grid(row=row, column=0, padx=5, pady=2, sticky="w")
@@ -199,10 +207,17 @@ class MainWindow:
         self.speaker_combo.grid(row=0, column=0, padx=5, pady=5, columnspan=8, sticky="w")
         self.speed_label.grid(row=1, column=0, padx=5, pady=5, columnspan=2, sticky="w")
         self.speed_scale.grid(row=1, column=2, padx=5, pady=5, columnspan=6, sticky="w")
-        self.start_button.grid(row=2, column=0, padx=5, pady=5, columnspan=3, sticky="w")
-        self.stop_button.grid(row=2, column=3, padx=5, pady=5, columnspan=3, sticky="w")
-        self.repeat_button.grid(row=2, column=6, padx=5, pady=5, columnspan=2, sticky="w")
-        self.audio_settings_frame.grid(row=3, column=0, padx=5, pady=5, columnspan=8, sticky="w")
+        self.button_frame.grid(row=2, column=0, columnspan=8, padx=5, pady=5, sticky="w")
+        self.start_button.pack(side=tk.LEFT, padx=(0, 8))
+        self.stop_button.pack(side=tk.LEFT, padx=(0, 8))
+        self.repeat_button.pack(side=tk.LEFT)
+
+        self.details_button.grid(row=3, column=0, columnspan=8, padx=5, pady=2, sticky="ew")
+        self.audio_settings_frame.grid(row=4, column=0, columnspan=8, padx=5, pady=5, sticky="w")
+        if not self.details_expanded:
+            self.audio_settings_frame.grid_remove()
+
+        self.update_window_geometry(initial=True)
         self.change_button_state()
 
     # 話者ドロップダウンリストの変更イベントハンドラ
@@ -295,6 +310,75 @@ class MainWindow:
             self.start_button.config(state=tk.NORMAL, image=self.icon_start)
             self.stop_button.config(state=tk.DISABLED, image=self.icon_stop_gray)
             self.repeat_button.config(state=tk.DISABLED, image=self.icon_repeat_gray)
+
+    # 詳細設定の展開／折りたたみを切り替える
+    def toggle_audio_settings(self):
+        self.details_expanded = not self.details_expanded
+
+        if self.details_expanded:
+            self.audio_settings_frame.grid()
+            self.details_button.config(text="詳細設定 ▲")
+        else:
+            self.audio_settings_frame.grid_remove()
+            self.details_button.config(text="詳細設定 ▼")
+
+        App.settings.set_details_expanded(self.details_expanded)
+        App.settings.save()
+
+        self.update_window_geometry()
+
+    # タスクバーを除いた画面の作業領域を取得する
+    def get_work_area(self):
+        if os.name == "nt":
+            import ctypes
+            from ctypes import wintypes
+
+            rect = wintypes.RECT()
+
+            result = ctypes.windll.user32.SystemParametersInfoW(
+                0x0030,  # SPI_GETWORKAREA
+                0,
+                ctypes.byref(rect),
+                0
+            )
+
+            if result:
+                return rect.left, rect.top, rect.right, rect.bottom
+
+        # Windows以外、または取得失敗時
+        return (
+            0,
+            0,
+            self.root.winfo_screenwidth(),
+            self.root.winfo_screenheight()
+        )
+
+    # ウィンドウのサイズと位置を更新する
+    def update_window_geometry(self, initial=False):
+        self.root.update_idletasks()
+
+        width = max(250, self.root.winfo_reqwidth())
+        height = max(150, self.root.winfo_reqheight())
+
+        # タスクバーを除いた画面領域
+        left, top, right, bottom = self.get_work_area()
+
+        if initial:
+            # 初回は右下に配置
+            x = right - width - 20
+            y = bottom - height - 20
+        else:
+            # 現在の位置を維持
+            x = self.root.winfo_x()
+            y = self.root.winfo_y()
+
+        # 画面からはみ出す場合のみ補正
+        marginx = 8
+        marginy = 40
+        x = max(left, min(x, right - width - marginx))
+        y = max(top, min(y, bottom - height - marginy))
+
+        self.root.geometry(f"{width}x{height}+{x}+{y}")
 
     # ワーカースレッドからのメッセージを読み込む
     def read_monitoring_thread_message(self, q):

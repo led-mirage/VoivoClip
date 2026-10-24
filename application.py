@@ -7,6 +7,7 @@
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
 import argparse
+import os
 import sys
 from tkinter import messagebox
 
@@ -15,7 +16,7 @@ from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 APP_NAME = "VoivoClip"
-APP_VERSION = "0.3.5_plumvery"
+APP_VERSION = "0.4.0"
 COPYRIGHT = "Copyright 2023-2026 led-mirage"
 
 SETTING_FILE = "settings.json"
@@ -29,6 +30,8 @@ class Application:
 
     # 開始
     def start(self):
+        self.set_dpi_awareness()
+
         parser = argparse.ArgumentParser(description=f"{APP_NAME} {APP_VERSION}")
         parser.add_argument("--setting", type=str, default=SETTING_FILE, help="設定ファイル名")
         args = parser.parse_args()
@@ -52,7 +55,18 @@ class Application:
         main_window = MainWindow(self)
         main_window.show()
         main_window.terminate()
-    
+
+    # 高DPIディスプレイ対応（文字がぼやけないようにする）
+    def set_dpi_awareness(self):
+        if os.name == "nt":
+            try:
+                from ctypes import windll
+                # Windows 8.1以降のDPI意識設定
+                windll.shcore.SetProcessDpiAwareness(1)
+            except Exception:
+                # 古いOSや環境で失敗してもアプリ自体は起動するように
+                pass
+
     # タイトルを表示する
     def print_apptitle(self):
         print(f"----------------------------------------------------------------------")

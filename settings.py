@@ -44,6 +44,7 @@ class Settings:
         self._voicevox_server = VoicevoxAPI.DEFALUT_SERVER
         self._voicevox_install_path = Voicevox.DEFAULT_INSTALL_PATH
         self._replacements = []
+        self._details_expanded = False
 
     # 話者ID
     def get_speaker_id(self):
@@ -133,6 +134,15 @@ class Settings:
         with self._lock:
             self._replacements = replacements
 
+    # 詳細設定の展開状態
+    def get_details_expanded(self):
+        with self._lock:
+            return self._details_expanded
+
+    def set_details_expanded(self, value):
+        with self._lock:
+            self._details_expanded = bool(value)
+
     # 設定ファイルを保存する
     def save(self):
         with self._lock:
@@ -154,6 +164,7 @@ class Settings:
             setting["voicevox_server"] = self._voicevox_server
             setting["voicevox_install_path"] = self._voicevox_install_path
             setting["replacements"] = self._replacements
+            setting["details_expanded"] = self._details_expanded
             json.dump(setting, file, ensure_ascii=False, indent=4)
 
     # 設定ファイルを読み込む
@@ -179,6 +190,7 @@ class Settings:
                 self._voicevox_server = setting.get("voicevox_server", self._voicevox_server)
                 self._voicevox_install_path = setting.get("voicevox_install_path", self._voicevox_install_path)
                 self._replacements = setting.get("replacements", self._replacements)
+                self._details_expanded = bool(setting.get("details_expanded", False))
 
         if file_ver < Settings.FILE_VER:
             self._save_nolock()
