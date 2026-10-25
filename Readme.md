@@ -39,7 +39,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 - Windows 11 Pro 25H2
 - Python 3.12.0
-- VOICEVOX 0.14.10 - 0.25.0
+- VOICEVOX 0.14.10 - 0.26.1
 - VOICEVOX ENGINE 0.14.6 - 0.16.1
 
 ## 実行方法
@@ -54,7 +54,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.4.0
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.4.1
 
 #### 3. 実行
 
@@ -201,12 +201,12 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2026/10/24 v0.4.0）
+VirusTotalでのチェック結果は以下の通りです（2026/10/25 v0.4.1）
 
-- VoivoClip.exe … [70個中3個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/ce172afd3807a16240e3fc5ae0017df80202df4519ad110c6ef7e13d88fdcda9/detection)
-- VoivoClipNC.exe … [71個中4個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/33bbd9086b71e646a8b90e4d733aa08f803a6f5f1a51550487d3c7b85c325b6e/detection)
+- VoivoClip.exe … [69個中4個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/5a19a01f0198af892f670079ed5be9a39e343608453efe4aee0163bfe3183f9f/detection)
+- VoivoClipNC.exe … [69個中5個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/321c3da78c1327988d70d2c47dc35ca737a8785654cff1c59a2ddd322d676660/detection)
 
-<img src="doc/virustotal_0.4.0.png" width="600">
+<img src="doc/virustotal_0.4.1.png" width="600">
 
 ## 使用しているライブラリ
 
@@ -308,3 +308,9 @@ VirusTotalでのチェック結果は以下の通りです（2026/10/24 v0.4.0�
 - pillowのバージョンを13.0.0に更新
 - requestsのバージョンを2.34.2に更新
 - PyInstallerのバージョンを6.14.2に変更
+
+### 0.4.1 (2026/10/25)
+
+- VOICEVOX v0.26.1で読み上げ時に「VOICEVOX と通信できませんでした」と表示される不具合を修正（[#12](https://github.com/led-mirage/VoivoClip/issues/12)）
+- 音声合成リクエストに `Content-Type: application/json` が付くように送信方法を変更
+- VOICEVOX v0.25.0およびv0.26.1で動作確認

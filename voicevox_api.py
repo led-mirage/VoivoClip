@@ -2,11 +2,10 @@
 #
 # VOICEVOX APIクラス
 #
-# Copyright (c) 2023-2024 led-mirage
+# Copyright (c) 2023-2026 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
-import json
 import requests
 
 from voicevox_speaker import VoicevoxSpeaker
@@ -54,6 +53,6 @@ class VoicevoxAPI:
     @staticmethod
     def synthesis(query_json, speaker_id):
         post_params = {"speaker": speaker_id}
-        response = requests.post(f"{VoicevoxAPI.server}/synthesis", params=post_params, data=json.dumps(query_json))
+        response = requests.post(f"{VoicevoxAPI.server}/synthesis", params=post_params, json=query_json)
         response.raise_for_status()
         return response.content
