@@ -2,7 +2,7 @@
 #
 # アプリケーションクラス
 #
-# Copyright (c) 2023-2024 led-mirage
+# Copyright (c) 2023-2026 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
@@ -16,7 +16,7 @@ from voicevox import Voicevox
 from voicevox_api import VoicevoxAPI
 
 APP_NAME = "VoivoClip"
-APP_VERSION = "0.4.0"
+APP_VERSION = "0.4.1"
 COPYRIGHT = "Copyright 2023-2026 led-mirage"
 
 SETTING_FILE = "settings.json"
