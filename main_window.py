@@ -2,7 +2,7 @@
 #
 # メインウィンドウクラス
 #
-# Copyright (c) 2023-2024 led-mirage
+# Copyright (c) 2023-2026 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
@@ -20,13 +20,14 @@ import wave
 
 import pyperclip
 import pyaudio
-import requests
 from PIL import Image, ImageTk
 
+from app_logging import get_logger, get_active_log_file_path
 from application import Application, APP_NAME, APP_VERSION
-from voicevox_api import VoicevoxAPI
+from voicevox_api import VoicevoxAPI, VoicevoxAPIError
 
 App = None
+logger = get_logger(__name__)
 
 class MainWindow:
     AUDIO_PARAMETER_SPECS = (
@@ -56,6 +57,7 @@ class MainWindow:
         self.pause_length_auto = None
 
         self.root = tk.Tk()
+        self.root.report_callback_exception = self.handle_tk_exception
         window_width = 410
         window_height = 380
         screen_width = self.root.winfo_screenwidth()
@@ -90,6 +92,28 @@ class MainWindow:
             text="詳細設定 ▲" if self.details_expanded else "詳細設定 ▼",
             command=self.toggle_audio_settings
         )
+
+    # Tkinterの例外ハンドラ（メインスレッドで動作する）
+    def handle_tk_exception(self, exc_type, exc_value, tb):
+        logger.error(
+            "Unhandled Tkinter callback exception",
+            exc_info=(exc_type, exc_value, tb),
+        )
+
+        log_file_path = get_active_log_file_path()
+        if log_file_path is not None:
+            message = (
+                "An unexpected error occurred.\n"
+                f"See the log file for details:\n\n{log_file_path}"
+            )
+        else:
+            message = (
+                "An unexpected error occurred.\n"
+                "The error details could not be logged because the log file "
+                "could not be created.\n\n"
+                f"{exc_type.__name__}: {exc_value}"
+            )
+        messagebox.showerror(APP_NAME, message, parent=self.root)
 
     # 終了処理
     def terminate(self):
@@ -279,8 +303,12 @@ class MainWindow:
             self.set_last_speech_text(pyperclip.paste())
             self.speech_queue = queue.Queue()
             self.stop_event.clear()
-            self.monitoring_thread = threading.Thread(target=self.monitor_clipboard)
-            self.speech_thread = threading.Thread(target=self.process_speech_queue)
+            self.monitoring_thread = threading.Thread(
+                target=self.monitor_clipboard,
+                name="ClipboardMonitor")
+            self.speech_thread = threading.Thread(
+                target=self.process_speech_queue,
+                name="SpeechQueueProcessor")
             self.monitoring_thread.start()
             self.speech_thread.start()
 
@@ -388,8 +416,8 @@ class MainWindow:
                 self.on_speech_started()
             elif signal == "speech finished":
                 self.on_speech_finished()
-            elif signal == "monitoring thread terminated":
-                self.on_monitoring_thread_terminated()
+            elif signal == "monitoring stopped":
+                self.on_monitoring_stopped()
             elif signal == "voicevox api error":
                 message = "VOICEVOX と通信できませんでした"
                 messagebox.showerror(f"{APP_NAME}", message)
@@ -410,8 +438,8 @@ class MainWindow:
         if self.monitoring:
             self.repeat_button.config(state=tk.NORMAL, image=self.icon_repeat)
 
-    # ワーカースレッドが終了した時に呼び出されるイベントハンドラ
-    def on_monitoring_thread_terminated(self):
+    # 監視処理が停止した時に呼び出されるイベントハンドラ
+    def on_monitoring_stopped(self):
         self.repeat_button.config(state=tk.DISABLED, image=self.icon_repeat_gray)
         self.monitoring = False
         self.change_button_state()
@@ -428,6 +456,8 @@ class MainWindow:
 
     # クリップボードを監視する（ワーカースレッド）    
     def monitor_clipboard(self):
+        logger.info("Clipboard monitoring started")
+
         try:
             while not self.stop_event.is_set():
                 text = pyperclip.paste()
@@ -436,9 +466,11 @@ class MainWindow:
                     self.speech_queue.put(text)
                 time.sleep(0.1)
         except Exception as err:
+            logger.exception("Clipboard monitoring failed")
             self.queue.put("unexpected error")
             self.stop_event.set()
-            print(err)
+        else:
+            logger.info("Clipboard monitoring stopped normally")
 
     # 読み上げキューを処理する（ワーカースレッド）
     def process_speech_queue(self):
@@ -459,16 +491,16 @@ class MainWindow:
                 self.speech_queue.task_done()
                 self.queue.put("speech finished")
                 print()
-        except requests.exceptions.RequestException as err:
+        except VoicevoxAPIError:
+            logger.exception("VOICEVOX API request failed")
             self.queue.put("voicevox api error")
             self.stop_event.set()
-            print(err)
-        except Exception as err:
+        except Exception:
+            logger.exception("Speech queue processing failed")
             self.queue.put("unexpected error")
             self.stop_event.set()
-            print(err)
         finally:
-            self.queue.put("monitoring thread terminated")
+            self.queue.put("monitoring stopped")
     
     # １行を処理する
     def process_line(self, line):
@@ -506,26 +538,36 @@ class MainWindow:
 
     # 音声データを再生する
     def play_sound(self, wave_data):
-        wave_file = wave.open(io.BytesIO(wave_data), 'rb')
-        audio = pyaudio.PyAudio()
+        audio = None
+        stream = None
 
         try:
-            format = audio.get_format_from_width(wave_file.getsampwidth())
+            with wave.open(io.BytesIO(wave_data), 'rb') as wave_file:
+                audio = pyaudio.PyAudio()
+                audio_format = audio.get_format_from_width(
+                    wave_file.getsampwidth())
 
-            stream = audio.open(
-                format=format,
-                channels=wave_file.getnchannels(),
-                rate=wave_file.getframerate(),
-                output=True)
+                stream = audio.open(
+                    format=audio_format,
+                    channels=wave_file.getnchannels(),
+                    rate=wave_file.getframerate(),
+                    output=True)
 
-            data = wave_file.readframes(1024)
-            while data != b'':
-                if self.stop_event.is_set():
-                    break
-                stream.write(data)
                 data = wave_file.readframes(1024)
-            time.sleep(0.2)
+                while data != b'':
+                    if self.stop_event.is_set():
+                        break
+                    stream.write(data)
+                    data = wave_file.readframes(1024)
+                time.sleep(0.2)
         finally:
-            stream.stop_stream()
-            stream.close()
-            audio.terminate()            
+            try:
+                if stream is not None:
+                    try:
+                        if stream.is_active():
+                            stream.stop_stream()
+                    finally:
+                        stream.close()
+            finally:
+                if audio is not None:
+                    audio.terminate()

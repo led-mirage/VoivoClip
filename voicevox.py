@@ -2,7 +2,7 @@
 #
 # VOICEVOX 制御用クラス
 #
-# Copyright (c) 2023-2024 led-mirage
+# Copyright (c) 2023-2026 led-mirage
 # このソースコードは MITライセンス の下でライセンスされています。
 # ライセンスの詳細については、このプロジェクトのLICENSEファイルを参照してください。
 
@@ -10,7 +10,7 @@ import os
 import subprocess
 import time
 
-from voicevox_api import VoicevoxAPI
+from voicevox_api import VoicevoxAPI, VoicevoxAPIError
 
 class Voicevox:
     DEFAULT_INSTALL_PATH = "%LOCALAPPDATA%/Programs/VOICEVOX/VOICEVOX.exe"
@@ -33,8 +33,8 @@ class Voicevox:
     
     @staticmethod
     def is_voicevox_running():
-        version = VoicevoxAPI.get_version()
-        if version is not None:
+        try:
+            VoicevoxAPI.get_version()
             return True
-        else:
+        except VoicevoxAPIError:
             return False

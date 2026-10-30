@@ -38,7 +38,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 ## 動作確認環境
 
 - Windows 11 Pro 25H2
-- Python 3.12.0
+- Python 3.13.17
 - VOICEVOX 0.14.10 - 0.26.1
 - VOICEVOX ENGINE 0.14.6 - 0.16.1
 
@@ -54,7 +54,7 @@ https://github.com/led-mirage/VoivoClip/assets/139528700/24307f87-4b5b-4f0c-837a
 
 以下のリンクから VoivoClip.ZIP をダウンロードして、作成したフォルダに展開してください。
 
-https://github.com/led-mirage/VoivoClip/releases/tag/v0.4.1
+https://github.com/led-mirage/VoivoClip/releases/tag/v0.5.0
 
 #### 3. 実行
 
@@ -79,6 +79,7 @@ ZIPファイルをダウンロードして作成したフォルダに展開し�
 
 ```bash
 git clone https://github.com/led-mirage/VoivoClip.git
+cd VoivoClip
 ```
 
 #### 4. ライブラリのインストール
@@ -201,12 +202,12 @@ VOICEVOXを自動起動するために使用します。VOICEVOXの実行ファ�
 
 誤認問題が解決できるのが一番いいのですが、いい方法が見つかっていないので申し訳ありませんがご了承ください。
 
-VirusTotalでのチェック結果は以下の通りです（2026/10/25 v0.4.1）
+VirusTotalでのチェック結果は以下の通りです（2026/10/30 v0.5.0）
 
-- VoivoClip.exe … [69個中4個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/5a19a01f0198af892f670079ed5be9a39e343608453efe4aee0163bfe3183f9f/detection)
-- VoivoClipNC.exe … [69個中5個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/321c3da78c1327988d70d2c47dc35ca737a8785654cff1c59a2ddd322d676660/detection)
+- VoivoClip.exe … [68個中1個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/974bb673c5d7a5c39566ed137766d6053220e7a4c47e90ccf400b5302cef42ba/detection)
+- VoivoClipNC.exe … [70個中2個のアンチウィルスエンジンで検出](https://www.virustotal.com/gui/file/7e73bd50b6cbb0cc352f6fa675575364ee2ff92964da2a545125ae32ab35f4ed/detection)
 
-<img src="doc/virustotal_0.4.1.png" width="600">
+<img src="doc/virustotal_0.5.0.png" width="600">
 
 ## 使用しているライブラリ
 
@@ -215,7 +216,7 @@ VirusTotalでのチェック結果は以下の通りです（2026/10/25 v0.4.1�
 ホームページ： https://requests.readthedocs.io/en/latest/  
 ライセンス：[Apache License 2.0](https://github.com/psf/requests/blob/main/LICENSE) 
 
-### 🔖 pyperclip 1.8.2 
+### 🔖 pyperclip 1.11.0
 
 ホームページ： https://github.com/asweigart/pyperclip/tree/master  
 ライセンス：[BSD 3-Clause "New" or "Revised" License](https://github.com/asweigart/pyperclip/blob/master/LICENSE.txt)
@@ -230,7 +231,7 @@ VirusTotalでのチェック結果は以下の通りです（2026/10/25 v0.4.1�
 ホームページ： https://python-pillow.org/  
 ライセンス：[HPND License](https://raw.githubusercontent.com/python-pillow/Pillow/main/LICENSE)
 
-### 🔖 PyInstaller 6.14.2
+### 🔖 PyInstaller 6.22.3
 
 ホームページ： https://github.com/pyinstaller/pyinstaller  
 ライセンス： GPL 2.0 License / Apache License 2.0  
@@ -260,7 +261,7 @@ VirusTotalでのチェック結果は以下の通りです（2026/10/25 v0.4.1�
 
 ### 0.2.2 (2024/02/04)
 
-- ローカルPCでビルドしたをpyinstaller使用するよう変更（誤検知対策）
+- ローカルPCでビルドしたPyInstallerを使用するよう変更（誤検知対策）
 - pillowを10.2.0に更新
 - VOICEVOX 0.16.1で動作確認
 
@@ -314,3 +315,12 @@ VirusTotalでのチェック結果は以下の通りです（2026/10/25 v0.4.1�
 - VOICEVOX v0.26.1で読み上げ時に「VOICEVOX と通信できませんでした」と表示される不具合を修正（[#12](https://github.com/led-mirage/VoivoClip/issues/12)）
 - 音声合成リクエストに `Content-Type: application/json` が付くように送信方法を変更
 - VOICEVOX v0.25.0およびv0.26.1で動作確認
+
+### 0.5.0 (2026/10/31)
+
+- Pythonを3.13.17に更新
+- pyperclipを1.11.0、PyInstallerを6.22.3に更新
+- アプリケーションの動作状況と例外をローテーション付きのログファイルへ出力する機能を追加
+- VOICEVOX API専用の例外クラスと通信タイムアウトを導入し、エラー処理を改善
+- PyInstallerのビルド設定をバッチファイルへ集約し、specファイルをビルド時に自動生成するように変更
+- EXEのプロパティに製品名、バージョン、著作権などの情報を追加
